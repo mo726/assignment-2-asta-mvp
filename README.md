@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Asta's Plan Against Lucifero
 
-## Getting Started
+This project is a single-page MVP dashboard for Asta's preparation plan against Lucifero. It uses a dark fantasy visual direction and includes a responsive checklist that tracks preparation progress for three core disciplines.
 
-First, run the development server:
+## Full name
+Mhamad Sayed Ahmad
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project summary
+The app presents a battle-preparation dashboard with:
+- an introduction explaining the threat and objective
+- three preparation tasks
+- task completion toggles and status updates
+- live count and percentage progress tracking
+- keyboard-accessible controls
+- a dark, readable layout optimized for desktop and narrow screens
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation and run
+1. Open a terminal in the project root.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the app:
+   ```bash
+   npm run dev
+   ```
+4. Open http://localhost:3000 in the browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Limitations
+- The app is intentionally scoped as a front-end MVP. It does not persist state across refresh without additional code.
+- The original Notion page could not be read reliably in this environment because of Notion's CSP and browser restrictions, so the implementation was aligned to the assignment theme and visible project requirements.
+- No credentials or secrets are included in the repository.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project documents
+- [docs/PRD.md](docs/PRD.md)
+- [docs/DESIGN.md](docs/DESIGN.md)
+- [docs/MCP.md](docs/MCP.md)
+- [docs/POC.md](docs/POC.md)
+- [docs/REVIEW.md](docs/REVIEW.md)
+- [docs/evidence](docs/evidence)

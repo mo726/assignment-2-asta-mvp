@@ -1,69 +1,189 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+
+type PreparationTask = {
+  id: string;
+  name: string;
+  description: string;
+  priority: "High" | "Medium" | "Low";
+  complete: boolean;
+};
+
+const initialTasks: PreparationTask[] = [
+  {
+    id: "sword-control",
+    name: "Sword control",
+    description: "Sharpen timing and precision so Asta can punish Lucifero's opening attacks.",
+    priority: "High",
+    complete: false,
+  },
+  {
+    id: "physical-endurance",
+    name: "Physical endurance",
+    description: "Build the stamina required to survive the brutal pace of a final clash.",
+    priority: "High",
+    complete: false,
+  },
+  {
+    id: "team-coordination",
+    name: "Team coordination",
+    description: "Align tactics and support to keep the squad steady when the battle turns chaotic.",
+    priority: "Medium",
+    complete: false,
+  },
+];
 
 export default function Home() {
+  const [tasks, setTasks] = useState(initialTasks);
+  const completedCount = tasks.filter((task) => task.complete).length;
+  const progress = Math.round((completedCount / tasks.length) * 100);
+
+  function toggleTask(taskId: string) {
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.id === taskId ? { ...task, complete: !task.complete } : task,
+      ),
+    );
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+    <main className="dashboard-shell">
+      <div className="ambient-glow" aria-hidden="true" />
+      <div className="dashboard-content">
+        <header className="topbar">
+          <a className="brand" href="#main" aria-label="Asta's plan against Lucifero home">
+            <span className="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M20 3.5 36.5 13v14L20 36.5 3.5 27V13L20 3.5Z" />
+                <path d="m20 10 9 5.2v9.6L20 30l-9-5.2v-9.6L20 10Z" />
+                <path d="M20 15v10M15.7 17.5l8.6 5M24.3 17.5l-8.6 5" />
+              </svg>
+            </span>
+            <span className="brand-copy">
+              <span className="brand-name">ASTA</span>
+              <span className="brand-caption">COUNTERPLAN / LUCIFERO</span>
+            </span>
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          <div className="session-status">
+            <span className="status-dot" aria-hidden="true" />
+            <span>BATTLE PREP</span>
+          </div>
+        </header>
+
+        <section className="dashboard-main" id="main">
+          <div className="intro">
+            <p className="eyebrow">
+              <span className="eyebrow-line" />
+              THE WORK BEFORE THE WIN
+            </p>
+            <h1>Asta&apos;s Plan Against Lucifero</h1>
+            <p className="intro-copy">
+              Lucifero&apos;s threat is closing in, and Asta must sharpen every
+              skill before the final clash. Track the preparation plan and keep
+              each discipline moving toward the decisive counter.
+            </p>
+            <div className="intro-note">
+              <span className="note-star" aria-hidden="true">✳</span>
+              <span>Three disciplines. One decisive strategy.</span>
+            </div>
+          </div>
+
+          <section className="tracker-panel" aria-labelledby="tracker-title">
+            <div className="panel-heading">
+              <div>
+                <p className="section-kicker">PREPARATION / 01</p>
+                <h2 id="tracker-title">Your battle plan</h2>
+              </div>
+              <span className="task-count">{tasks.length} STEPS</span>
+            </div>
+
+            <div className="progress-card" aria-live="polite">
+              <div className="progress-topline">
+                <div>
+                  <p className="metric-label">PREPARATION PLAN COMPLETION</p>
+                  <p className="progress-count">
+                    <span>{completedCount}</span>
+                    <span className="count-divider">/</span>
+                    <span>{tasks.length}</span>
+                    <span className="count-caption">PLAN STAGES COMPLETE</span>
+                  </p>
+                </div>
+                <p className="progress-percent">{progress}%</p>
+              </div>
+              <div
+                className="progress-track"
+                role="progressbar"
+                aria-label="Preparation progress"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={progress}
+                aria-valuetext={`${completedCount} of ${tasks.length} tasks complete, ${progress}%`}
+              >
+                <span
+                  className="progress-fill"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className="progress-foot">
+                <span>BEGIN</span>
+                <span>{completedCount === tasks.length ? "ALL PREP COMPLETE" : "KEEP MOVING FORWARD"}</span>
+                <span>READY</span>
+              </div>
+            </div>
+
+            <div className="task-list">
+              <div className="list-heading">
+                <span>YOUR DISCIPLINES</span>
+                <span>STATUS</span>
+              </div>
+              {tasks.map((task, index) => (
+                <label
+                  className={`task-row${task.complete ? " is-complete" : ""}`}
+                  key={task.id}
+                >
+                  <input
+                    className="task-checkbox"
+                    type="checkbox"
+                    checked={task.complete}
+                    onChange={() => toggleTask(task.id)}
+                    aria-label={`${task.complete ? "Mark incomplete" : "Mark complete"}: ${task.name}`}
+                  />
+                  <span className="task-check-visual" aria-hidden="true">
+                    <svg viewBox="0 0 18 18" fill="none">
+                      <path d="m4 9 3.2 3.2L14 5.8" />
+                    </svg>
+                  </span>
+                  <span className="task-index">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="task-main">
+                    <span className="task-name">{task.name}</span>
+                    <span className="task-meta">
+                      <span className="task-priority">{task.priority} PRIORITY</span>
+                      <span className="task-description">{task.description}</span>
+                    </span>
+                  </span>
+                  <span className="task-status">
+                    <span className="task-status-dot" aria-hidden="true" />
+                    {task.complete ? "COMPLETE" : "TO DO"}
+                  </span>
+                  <span className="task-chevron" aria-hidden="true">↗</span>
+                </label>
+              ))}
+            </div>
+
+            <p className="panel-footnote">
+              <span className="footnote-mark" aria-hidden="true">✦</span>
+              Each completed discipline brings the counter closer to victory.
+            </p>
+          </section>
+        </section>
+
+        <footer className="footer">
+          <span>DISCIPLINE IS THE KEY TO VICTORY</span>
+          <span className="footer-seal" aria-hidden="true">✳</span>
+          <span>FIGHT FOR THE FUTURE</span>
+        </footer>
+      </div>
+    </main>
   );
 }
